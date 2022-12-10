@@ -21,7 +21,10 @@ func Start(viper *viper.Viper) {
 	adapter := tado.Init(homename, username, password)
 
 	_, err := taskScheduler.ScheduleWithFixedDelay(func(ctx context.Context) {
-		adapter.CheckOpenWindows(taskScheduler)
+		openWindowError := adapter.CheckOpenWindows()
+		if openWindowError != nil {
+			logrus.Errorf("Error during open windows check: %s", openWindowError.Error())
+		}
 	}, 10*time.Second)
 
 	if err == nil {

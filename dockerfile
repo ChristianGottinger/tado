@@ -1,10 +1,27 @@
-FROM golang:1.18-alpine
+FROM golang:1.18.0-bullseye as build
 
-################## Compile  ##############################
-ADD . /src
-WORKDIR /src/cmd
+RUN apt-get update && \
+    apt-get install lsb-release -y
 
-RUN go build -o tado
-RUN cp tado $GOPATH/bin
+RUN go version
 
-WORKDIR /src/cmd
+RUN apt-get update
+
+ADD . /app
+WORKDIR /app/cmd
+
+RUN go build -o /out/tado
+
+WORKDIR /app
+RUN go vet ./...
+RUN go test ./... --cover
+
+#############################################################
+FROM gcr.io/distroless/base:debug AS final
+
+USER nonroot:nonroot
+COPY --from=build --chown=nonroot:nonroot /out /out
+
+WORKDIR /out
+
+ENTRYPOINT ["./tado"]
