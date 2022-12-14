@@ -8,5 +8,5 @@ password: password used to login into tado app
 
 ```
 # replace parameters in sharp clips
-docker run open-window -n "<homename>" -u "<username>" -p "<password>"
+docker run cgot/tado open-window -n "<homename>" -u "<username>" -p "<password>"
 ```
