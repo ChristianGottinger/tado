@@ -22,4 +22,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: cgot/tado:$(date +%s),cgot/tado:latest
+          tags: cgot/tado:latest
