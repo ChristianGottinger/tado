@@ -3,7 +3,7 @@ module tado
 go 1.18
 
 require (
-	github.com/conplementag/cops-hq/v2 v2.10.0
+	github.com/conplementag/cops-hq/v2 v2.13.0
 	github.com/gonzolino/gotado/v2 v2.0.5
 	github.com/procyon-projects/chrono v1.1.2
 	github.com/sirupsen/logrus v1.9.3
